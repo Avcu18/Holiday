@@ -6,10 +6,9 @@ pragma solidity ^0.8.0;
 // preis je nach urlaubsziel/ dynamisieren
 
 import "./HolidayVoting.sol";
-import "./ETHtoUSDTconverter.sol";
+
 
 contract Funding is Voting {
-    using Converter for uint256;
 
     address [] friends;
     uint neededMoney; // pro person 
@@ -28,7 +27,7 @@ contract Funding is Voting {
 
 
     function funding() public payable   {
-        require(msg.value.getConversionRate() >= neededMoney, "You didnt send enough money"); // kann auch mehr geld schicken
+        require(msg.value >= neededMoney, "You didnt send enough money"); // kann auch mehr geld schicken
         friends.push(msg.sender);
         addressToAmountMoney[msg.sender] = msg.value;
 
